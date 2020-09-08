@@ -55,8 +55,14 @@ public class ApiUtilTest {
     public void testGetLeadersFromJson() {
         ArrayList<Leader> learningHoursLeaders = apiUtil.getLeadersFromJson(LEARNING_HOURS);
         ArrayList<Leader> skillIqLeaders = apiUtil.getLeadersFromJson(SKILL_IQ);
-        System.out.println(learningHoursLeaders);
-        System.out.println(skillIqLeaders);
+        assertEquals(20, learningHoursLeaders.size());
+        assertEquals(20, skillIqLeaders.size());
+        for (Leader leader : learningHoursLeaders) {
+            System.out.println(leader.getName() + " " + leader.getHours() + " " + leader.getCountry());
+        }
+        for (Leader leader : skillIqLeaders) {
+            System.out.println(leader.getName() + " " + leader.getScore() + " " + leader.getCountry());
+        }
     }
 
 }
