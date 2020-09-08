@@ -3,4 +3,8 @@
     <string name="learning_leaders_tab">Learning Leaders</string>
     <string name="skill_iq_leaders_tab">Skill IQ Leaders</string>
     <string name="launcher_icon">Launcher icon</string>
+    <string name="leader_badge">Leader badge</string>
+    <string name="name_of_leader">Name of Leader</string>
+    <string name="leader_information">Leader\'s information</string>
+    <string name="learning_leader_info">%1$d learning hours, %2$s.</string>
 </resources>
