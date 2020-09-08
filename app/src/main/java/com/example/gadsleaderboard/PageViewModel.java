@@ -1,4 +1,4 @@
-package com.example.gadsleaderboard.ui.main;
+package com.example.gadsleaderboard;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
