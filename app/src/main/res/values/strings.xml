@@ -7,4 +7,5 @@
     <string name="name_of_leader">Name of Leader</string>
     <string name="leader_information">Leader\'s information</string>
     <string name="learning_leader_info">%1$d learning hours, %2$s.</string>
+    <string name="skill_iq_info">%1$d skill IQ score, %2$s.</string>
 </resources>
