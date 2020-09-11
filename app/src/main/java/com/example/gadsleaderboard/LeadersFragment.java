@@ -7,10 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -32,7 +36,7 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -46,10 +50,18 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
+        final RecyclerView recyclerView = root.findViewById(R.id.leaders_recyclerview);
+        final LeadersAdapter adapter = new LeadersAdapter(getActivity(), new ArrayList<Leader>());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        pageViewModel.getLearningHoursLeaders().observe(this, new Observer<List<Leader>>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onChanged(List<Leader> leaders) {
+                if ( leaders != null ) {
+                    textView.setText(leaders.toString());
+                    LeadersAdapter adapter = new LeadersAdapter(getActivity(), leaders);
+                    recyclerView.setAdapter(adapter);
+                }
             }
         });
         return root;
