@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class ApiUtil {
 
-    private final String BASE_API_URL = "https://gadsapi.herokuapp.com";
+    public final String BASE_API_URL = "https://gadsapi.herokuapp.com";
     private static ApiUtil INSTANCE;
 
     enum Endpoint {
