@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeadersFragment">
+    tools:context=".HoursLeadersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaders_recyclerview"
@@ -19,6 +19,6 @@
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constrainTop_creator="1"
-        tools:listitem="@layout/leader_list_item" />
+        tools:listitem="@layout/hours_leader_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

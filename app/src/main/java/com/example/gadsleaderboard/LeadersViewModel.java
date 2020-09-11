@@ -19,13 +19,6 @@ public class LeadersViewModel extends ViewModel {
         leadersRepository = LeadersRepository.getInstance();
     }
 
-    public LiveData<List<Leader>> getLeaders(Integer index) {
-        if (index == 1)
-            return getLearningHoursLeaders();
-        else
-            return getSkillIQLeaders();
-    }
-
     public LiveData<List<Leader>> getLearningHoursLeaders() {
         mutableLiveData = leadersRepository.getLeaders(LEARNING_HOURS);
         return mutableLiveData;

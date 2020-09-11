@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ApiUtil {
+class ApiUtil {
 
-    public final String BASE_API_URL = "https://gadsapi.herokuapp.com";
+    final String BASE_API_URL = "https://gadsapi.herokuapp.com";
     private static ApiUtil INSTANCE;
 
     enum Endpoint {
@@ -45,7 +45,7 @@ public class ApiUtil {
         return INSTANCE;
     }
 
-    public URL buildUrl(Endpoint endpoint) {
+    URL buildUrl(Endpoint endpoint) {
         URL url = null;
         try {
             url = new URL(BASE_API_URL + endpoint.getRoute());
@@ -55,7 +55,7 @@ public class ApiUtil {
         return url;
     }
 
-    public String getJson(URL url) throws IOException {
+    String getJson(URL url) throws IOException {
         String json = "";
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         try {

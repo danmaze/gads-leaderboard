@@ -11,43 +11,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class LeadersAdapter extends RecyclerView.Adapter<LeadersAdapter.LeaderViewHolder> {
+public class HoursLeadersAdapter extends RecyclerView.Adapter<HoursLeadersAdapter.LeaderViewHolder> {
 
     private Context context;
     private List<Leader> leaders;
-    private Integer pageIndex;
 
     class LeaderViewHolder extends RecyclerView.ViewHolder {
-        private TextView leaderName = itemView.findViewById(R.id.leader_name);
-        private TextView leaderInformation = itemView.findViewById(R.id.leader_information);
+        TextView leaderName = itemView.findViewById(R.id.leader_name);
+        TextView leaderInformation = itemView.findViewById(R.id.leader_information);
 
         LeaderViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
 
-    public LeadersAdapter(Context context, List<Leader> leaders, Integer pageIndex) {
+    HoursLeadersAdapter(Context context, List<Leader> leaders) {
         this.context = context;
         this.leaders = leaders;
-        this.pageIndex = pageIndex;
     }
 
     @NonNull
     @Override
-    public LeadersAdapter.LeaderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HoursLeadersAdapter.LeaderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View itemView = LayoutInflater.from(context).inflate(R.layout.leader_list_item, parent, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.hours_leader_item, parent, false);
         return new LeaderViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LeadersAdapter.LeaderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HoursLeadersAdapter.LeaderViewHolder holder, int position) {
         Leader leader = leaders.get(position);
-        String leader_info;
-        if (pageIndex == 1)
-            leader_info = context.getString(R.string.learning_leader_info, leader.getHours(), leader.getCountry());
-        else
-            leader_info = context.getString(R.string.skill_iq_info, leader.getScore(), leader.getCountry());
+        String leader_info = context.getString(R.string.learning_leader_info, leader.getHours(), leader.getCountry());
         holder.leaderName.setText(leader.getName());
         holder.leaderInformation.setText(leader_info);
     }
