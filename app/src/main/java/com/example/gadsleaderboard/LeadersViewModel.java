@@ -1,9 +1,7 @@
 package com.example.gadsleaderboard;
 
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -12,25 +10,33 @@ import java.util.List;
 import static com.example.gadsleaderboard.ApiUtil.Endpoint.LEARNING_HOURS;
 import static com.example.gadsleaderboard.ApiUtil.Endpoint.SKILL_IQ;
 
-public class PageViewModel extends ViewModel {
+public class LeadersViewModel extends ViewModel {
 
-    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
-        @Override
-        public String apply(Integer input) {
-            return "Hello world from section: " + input;
-        }
-    });
+    private MutableLiveData<List<Leader>> mutableLiveData;
+    private LeadersRepository leadersRepository;
 
-    public void setIndex(int index) {
-        mIndex.setValue(index);
+    public LeadersViewModel() {
+        leadersRepository = LeadersRepository.getInstance();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Leader>> getLeaders(Integer index) {
+        if (index == 1)
+            return getLearningHoursLeaders();
+        else
+            return getSkillIQLeaders();
     }
 
     public LiveData<List<Leader>> getLearningHoursLeaders() {
+        mutableLiveData = leadersRepository.getLeaders(LEARNING_HOURS);
+        return mutableLiveData;
+    }
+
+    public LiveData<List<Leader>> getSkillIQLeaders() {
+        mutableLiveData = leadersRepository.getLeaders(SKILL_IQ);
+        return mutableLiveData;
+    }
+
+    public LiveData<List<Leader>> getHoursLeaders() {
         ApiUtil apiUtil = ApiUtil.getInstance();
         ArrayList<Leader> learningHoursLeaders = apiUtil.getLeadersFromJson(LEARNING_HOURS);
         MutableLiveData<List<Leader>> mutableLeadersListLiveData = new MutableLiveData<>();
@@ -38,7 +44,7 @@ public class PageViewModel extends ViewModel {
         return mutableLeadersListLiveData;
     }
 
-    public LiveData<List<Leader>> getSkillIQLeaders() {
+    public LiveData<List<Leader>> getIQLeaders() {
         ApiUtil apiUtil = ApiUtil.getInstance();
         ArrayList<Leader> learningHoursLeaders = apiUtil.getLeadersFromJson(SKILL_IQ);
         MutableLiveData<List<Leader>> mutableLeadersListLiveData = new MutableLiveData<>();
