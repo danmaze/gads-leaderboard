@@ -9,12 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class LeadersAdapter extends RecyclerView.Adapter<LeadersAdapter.LeaderViewHolder> {
 
     private Context context;
-    private ArrayList<Leader> leaders;
+    private List<Leader> leaders;
+    private Integer pageIndex;
 
     class LeaderViewHolder extends RecyclerView.ViewHolder {
         private TextView leaderName = itemView.findViewById(R.id.leader_name);
@@ -25,8 +26,10 @@ public class LeadersAdapter extends RecyclerView.Adapter<LeadersAdapter.LeaderVi
         }
     }
 
-    public LeadersAdapter(ArrayList<Leader> leaders) {
+    public LeadersAdapter(Context context, List<Leader> leaders, Integer pageIndex) {
+        this.context = context;
         this.leaders = leaders;
+        this.pageIndex = pageIndex;
     }
 
     @NonNull
@@ -40,14 +43,20 @@ public class LeadersAdapter extends RecyclerView.Adapter<LeadersAdapter.LeaderVi
     @Override
     public void onBindViewHolder(@NonNull LeadersAdapter.LeaderViewHolder holder, int position) {
         Leader leader = leaders.get(position);
-        String leader_info = context.getString(R.string.learning_leader_info, leader.getHours(), leader.getCountry());
+        String leader_info;
+        if (pageIndex == 1)
+            leader_info = context.getString(R.string.learning_leader_info, leader.getHours(), leader.getCountry());
+        else
+            leader_info = context.getString(R.string.skill_iq_info, leader.getScore(), leader.getCountry());
         holder.leaderName.setText(leader.getName());
         holder.leaderInformation.setText(leader_info);
     }
 
     @Override
     public int getItemCount() {
-        return leaders.size();
+        if (leaders != null)
+            return leaders.size();
+        else return 0;
     }
 
 }
