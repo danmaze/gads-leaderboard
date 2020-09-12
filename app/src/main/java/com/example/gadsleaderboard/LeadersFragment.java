@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HoursLeadersFragment extends Fragment {
 
+    private ArrayList<Leader> leadersList = new ArrayList<>();
     private RecyclerView leadersRecyclerView;
     private LeadersViewModel leadersViewModel;
+    private HoursLeadersAdapter hoursLeadersAdapter;
 
     static HoursLeadersFragment newInstance() {
         return new HoursLeadersFragment();
@@ -32,20 +35,29 @@ public class HoursLeadersFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
-        leadersRecyclerView = root.findViewById(R.id.leaders_recyclerview);
-        leadersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        leadersRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        leadersRecyclerView.setNestedScrollingEnabled(true);
+        View root = inflater.inflate(R.layout.hours_leaders_fragment, container, false);
+        leadersRecyclerView = root.findViewById(R.id.hours_leaders_rview);
         leadersViewModel.getLearningHoursLeaders().observe(this, new Observer<List<Leader>>() {
             @Override
             public void onChanged(List<Leader> leaders) {
-                HoursLeadersAdapter hoursLeadersAdapter = new HoursLeadersAdapter(getActivity(), leaders);
-                leadersRecyclerView.setAdapter(hoursLeadersAdapter);
+                leadersList.addAll(leaders);
                 hoursLeadersAdapter.notifyDataSetChanged();
             }
         });
+        setupRecyclerView();
         return root;
+    }
+
+    private void setupRecyclerView() {
+        if (hoursLeadersAdapter == null) {
+            hoursLeadersAdapter = new HoursLeadersAdapter(getActivity(), leadersList);
+            leadersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            leadersRecyclerView.setAdapter(hoursLeadersAdapter);
+            leadersRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            leadersRecyclerView.setNestedScrollingEnabled(true);
+        } else {
+            hoursLeadersAdapter.notifyDataSetChanged();
+        }
     }
 
 }
