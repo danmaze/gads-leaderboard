@@ -2,6 +2,7 @@ package com.example.gadsleaderboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("MainActivity", "Button clicked");
                 Intent submitIntent = new Intent(MainActivity.this, SubmissionActivity.class);
                 startActivity(submitIntent);
             }

@@ -16,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SubmissionActivity extends AppCompatActivity {
+public class SubmissionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String firstName;
     private String lastName;
@@ -55,6 +55,7 @@ public class SubmissionActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                Log.e("SubmissionActivity", "Submit button clicked");
                 AlertDialog.Builder builder = new AlertDialog.Builder(SubmissionActivity.this);
                 builder.setMessage("Are you sure?")
                         .setPositiveButton("Yes", dialogClickListener)
@@ -90,4 +91,8 @@ public class SubmissionActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }
