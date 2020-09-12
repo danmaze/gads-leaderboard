@@ -26,14 +26,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return HoursLeadersFragment.newInstance();
-            case 1:
-                return SkillIQLeadersFragment.newInstance();
-            default:
-                return null;
-        }
+        return LeadersFragment.newInstance(position);
     }
 
     @Nullable
