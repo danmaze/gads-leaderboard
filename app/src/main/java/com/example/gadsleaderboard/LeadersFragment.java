@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,7 @@ public class LeadersFragment extends Fragment {
     private RecyclerView leadersRecyclerView;
     private LeadersViewModel leadersViewModel;
     private LeadersAdapter leadersAdapter;
+    private ProgressBar progressBar;
 
     static LeadersFragment newInstance(int pageIndex) {
         LeadersFragment fragment = new LeadersFragment();
@@ -46,14 +48,18 @@ public class LeadersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.leaders_fragment, container, false);
         leadersRecyclerView = root.findViewById(R.id.hours_leaders_rview);
+        progressBar = root.findViewById(R.id.loading);
         switch (pageIndex) {
             case 0:
                 leadersViewModel.getLearningHoursLeaders().observe(this, new Observer<List<Leader>>() {
                     @Override
                     public void onChanged(List<Leader> leaders) {
-                        if (leaders != null) {
+                        if (leaders != null && !leaders.isEmpty()) {
+                            progressBar.setVisibility(View.GONE);
                             leadersList.addAll(leaders);
                             leadersAdapter.notifyDataSetChanged();
+                        } else {
+                            progressBar.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -62,9 +68,12 @@ public class LeadersFragment extends Fragment {
                 leadersViewModel.getSkillIQLeaders().observe(this, new Observer<List<Leader>>() {
                     @Override
                     public void onChanged(List<Leader> leaders) {
-                        if (leaders != null) {
+                        if (leaders != null && !leaders.isEmpty()) {
+                            progressBar.setVisibility(View.GONE);
                             leadersList.addAll(leaders);
                             leadersAdapter.notifyDataSetChanged();
+                        } else {
+                            progressBar.setVisibility(View.VISIBLE);
                         }
                     }
                 });

@@ -27,7 +27,7 @@ public class LeadersRepository {
     private LeadersApi leadersApi;
 
     public LeadersRepository() {
-        leadersApi = RetrofitService.createService(LeadersApi.class);
+        leadersApi = RetrofitService.createLeaderboardService(LeadersApi.class);
     }
 
     public MutableLiveData<List<Leader>> getLeaders(Endpoint endpoint) {

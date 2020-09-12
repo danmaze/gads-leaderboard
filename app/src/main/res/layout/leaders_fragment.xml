@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
+    android:background="@color/extra_light_gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LeadersFragment">
@@ -20,5 +21,17 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constrainTop_creator="1"
         tools:listitem="@layout/hours_leader_item" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@android:color/holo_orange_dark"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
