@@ -58,8 +58,8 @@ public class SubmissionActivity extends AppCompatActivity implements View.OnClic
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialog.dismiss();
                             }
-                        });
-                dialog.show();
+                        })
+                        .show();
                 int color = ContextCompat.getColor(SubmissionActivity.this, android.R.color.holo_orange_dark);
                 dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(color);
                 dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(color);
