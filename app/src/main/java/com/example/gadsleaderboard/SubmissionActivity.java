@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SubmissionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SubmissionActivity extends AppCompatActivity {
 
     private String firstName;
     private String lastName;
@@ -91,10 +91,5 @@ public class SubmissionActivity extends AppCompatActivity implements View.OnClic
                 alertDialogBuilder.show();
             }
         });
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }
