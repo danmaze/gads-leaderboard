@@ -40,29 +40,25 @@ public class SubmissionActivity extends AppCompatActivity implements View.OnClic
 
         Button submitButton = findViewById(R.id.submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
-            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
-                        case DialogInterface.BUTTON_POSITIVE:
-                            submitProject();
-                            break;
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            dialog.dismiss();
-                            break;
-                    }
-                }
-            };
-
             @Override
             public void onClick(View view) {
                 Log.e("SubmissionActivity", "Submit button clicked");
                 AlertDialog.Builder builder = new AlertDialog.Builder(SubmissionActivity.this);
+                final AlertDialog dialog = builder.create();
                 builder.setMessage("Are you sure?")
                         .setCancelable(false)
-                        .setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener);
-                AlertDialog dialog = builder.create();
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                submitProject();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialog.dismiss();
+                            }
+                        });
                 dialog.show();
                 int color = ContextCompat.getColor(SubmissionActivity.this, android.R.color.holo_orange_dark);
                 dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(color);
