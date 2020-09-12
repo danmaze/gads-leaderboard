@@ -11,6 +11,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,9 +59,14 @@ public class SubmissionActivity extends AppCompatActivity implements View.OnClic
                 Log.e("SubmissionActivity", "Submit button clicked");
                 AlertDialog.Builder builder = new AlertDialog.Builder(SubmissionActivity.this);
                 builder.setMessage("Are you sure?")
+                        .setCancelable(false)
                         .setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener)
-                        .show();
+                        .setNegativeButton("No", dialogClickListener);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                int color = ContextCompat.getColor(SubmissionActivity.this, android.R.color.holo_orange_dark);
+                dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(color);
+                dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(color);
             }
         });
     }
