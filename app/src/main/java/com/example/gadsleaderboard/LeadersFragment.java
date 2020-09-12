@@ -16,47 +16,73 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HoursLeadersFragment extends Fragment {
+public class LeadersFragment extends Fragment {
 
+    private final static String ARG_PAGE_INDEX = "page_index";
+    private int pageIndex;
     private ArrayList<Leader> leadersList = new ArrayList<>();
     private RecyclerView leadersRecyclerView;
     private LeadersViewModel leadersViewModel;
-    private HoursLeadersAdapter hoursLeadersAdapter;
+    private LeadersAdapter leadersAdapter;
 
-    static HoursLeadersFragment newInstance() {
-        return new HoursLeadersFragment();
+    static LeadersFragment newInstance(int pageIndex) {
+        LeadersFragment fragment = new LeadersFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_PAGE_INDEX, pageIndex);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         leadersViewModel = ViewModelProviders.of(this).get(LeadersViewModel.class);
+        pageIndex = 0;
+        if (getArguments() != null)
+            pageIndex = getArguments().getInt(ARG_PAGE_INDEX);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.hours_leaders_fragment, container, false);
         leadersRecyclerView = root.findViewById(R.id.hours_leaders_rview);
-        leadersViewModel.getLearningHoursLeaders().observe(this, new Observer<List<Leader>>() {
-            @Override
-            public void onChanged(List<Leader> leaders) {
-                leadersList.addAll(leaders);
-                hoursLeadersAdapter.notifyDataSetChanged();
-            }
-        });
+        switch (pageIndex) {
+            case 0:
+                leadersViewModel.getLearningHoursLeaders().observe(this, new Observer<List<Leader>>() {
+                    @Override
+                    public void onChanged(List<Leader> leaders) {
+                        if (leaders != null) {
+                            leadersList.addAll(leaders);
+                            leadersAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+                break;
+            case 1:
+                leadersViewModel.getSkillIQLeaders().observe(this, new Observer<List<Leader>>() {
+                    @Override
+                    public void onChanged(List<Leader> leaders) {
+                        if (leaders != null) {
+                            leadersList.addAll(leaders);
+                            leadersAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+                break;
+        }
         setupRecyclerView();
         return root;
     }
 
     private void setupRecyclerView() {
-        if (hoursLeadersAdapter == null) {
-            hoursLeadersAdapter = new HoursLeadersAdapter(getActivity(), leadersList);
+        if (leadersAdapter == null) {
+            leadersAdapter = new LeadersAdapter(getActivity(), leadersList, pageIndex);
             leadersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            leadersRecyclerView.setAdapter(hoursLeadersAdapter);
+            leadersRecyclerView.setAdapter(leadersAdapter);
             leadersRecyclerView.setItemAnimator(new DefaultItemAnimator());
             leadersRecyclerView.setNestedScrollingEnabled(true);
         } else {
-            hoursLeadersAdapter.notifyDataSetChanged();
+            leadersAdapter.notifyDataSetChanged();
         }
     }
 
