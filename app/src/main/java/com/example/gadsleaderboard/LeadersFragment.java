@@ -44,7 +44,7 @@ public class LeadersFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.hours_leaders_fragment, container, false);
+        View root = inflater.inflate(R.layout.leaders_fragment, container, false);
         leadersRecyclerView = root.findViewById(R.id.hours_leaders_rview);
         switch (pageIndex) {
             case 0:

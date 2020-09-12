@@ -5,10 +5,10 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HoursLeadersFragment">
+    tools:context=".LeadersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/leaders_recyclerview"
+        android:id="@+id/hours_leaders_rview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:divider="@null"
